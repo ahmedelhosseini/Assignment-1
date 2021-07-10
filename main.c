@@ -1,32 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <windows.h>
-
-nt currentNumber = 0;
-int Choice = 0;
-
-typedef struct
-{
-    char name[50];
-    int ID;
-    int day;
-    int month;
-    int year;
-    int score;
-
-} Student;
-
-struct node
-{
-   Student student;
-   struct node* next;
-};
-
-struct node* head = NULL;
-struct node* tail = NULL;
-
-Student *st = NULL;
 
 int pointer = 1;
 int pressedKey = 0;
@@ -56,96 +30,6 @@ void pointHere(int x, int y)
     else
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 }
-
-void InsertAtbeg(  )
-{
-    if(1 != Choice)
-    {
-        struct node* add = (struct node*)malloc(sizeof(struct node));
-
-        Get_Info(&(add->student));
-
-        
-		add->next = head;
-		if(NULL == head)
-            tail = add;
-        head = add;
-        
-    }
-    
-    setCursorPosition(0, 13);
-    printf("The student is inserted successfully.");
-
-    getch();
-}
-
-void InsertAtmid( )
-{
-    if(1 != Choice)
-    {
-        if(NULL == head)
-        {
-            InsertAtbeg();
-        }
-        else
-        {
-            struct node* add = (struct node*)malloc(sizeof(struct node));
-
-            Get_Info(&(add->student));
-
-            struct node* slow = head;
-            struct node* fast = head->next;
-
-            while(fast != NULL && fast->next != NULL)
-            {
-                slow=slow->next;
-                fast=fast->next->next;
-            }
-            add->next = slow->next;
-            slow->next = add;
-        }
-
-
-    }
-    
-
-    setCursorPosition(0, 13);
-    printf("The student is inserted successfully.");
-
-    getch();
-}
-
-void InsertAtlast(  )
-{
-    if(1 != Choice)
-    {
-
-        if(NULL != tail)
-        {
-            struct node* add = (struct node*)malloc(sizeof(struct node));
-
-            Get_Info(&(add->student));
-            add->next = NULL;
-
-            tail->next=add;
-            tail=add;
-        }
-        else
-        {
-            InsertAtbeg();
-            //tail=add;
-            //head = add;
-        }
-
-    }
-    
-
-    setCursorPosition(0, 13);
-    printf("The student is inserted successfully.");
-
-    getch();
-}
-
 
 void welcome()
 {
@@ -347,12 +231,21 @@ void Options(short choice)
     }
 }
 
+typedef struct
+{
+    char name[50];
+    int ID;
+    int day;
+    int month;
+    int year;
+    int score;
 
+} Student;
 
 int main()
 {
     hidecursor();
-     st = (Student*)malloc(NumberOfStudent*sizeof(Student));
+
     welcome();
 
     while(1)
